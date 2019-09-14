@@ -14,7 +14,7 @@ const config = {
 export default class Firebase implements IFirebase {
     
     auth: Object;
-    db: any;
+    db: Object;
 
     public constructor () {
         app.initializeApp(config);
