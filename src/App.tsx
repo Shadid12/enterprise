@@ -1,10 +1,9 @@
 import React from 'react';
+import AppRouter from './Containers/Router';
 
 const App: React.FC = () => {
   return (
-    <div className="App">
-      Hellow worlds
-    </div>
+    <AppRouter />
   );
 }
 
