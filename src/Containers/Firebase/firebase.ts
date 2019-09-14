@@ -1,5 +1,6 @@
 import app from 'firebase/app';
 import IFirebase from './IFirebase';
+import { SignupPayloadModel } from './../../Models/SignupPayloadModel/index';
 
 const config = {
     apiKey: "AIzaSyDEgUSflAoHxQXREocKchDHKLehQ_X8rmM",
@@ -13,7 +14,7 @@ const config = {
 
 export default class Firebase implements IFirebase {
     
-    auth: Object;
+    auth: any;
     db: Object;
 
     public constructor () {
@@ -24,6 +25,15 @@ export default class Firebase implements IFirebase {
 
     public getUserAuth (): Object {
         return this.auth;
+    }
+
+    public createUser (userData: SignupPayloadModel) {
+        return new Promise(resolve => {
+          this.auth.createUserWithEmailAndPassword(userData.email, userData.password)
+            .then((res: Promise<firebase.auth.UserCredential>) => {
+                resolve(res);
+            });
+        })
     }
     
 }

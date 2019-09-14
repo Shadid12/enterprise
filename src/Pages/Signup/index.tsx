@@ -1,9 +1,5 @@
 import React, { Fragment, useState  } from 'react';
-
-type SignupPayloadModel = {
-    email?: string,
-    password?: string
-}
+import { SignupPayloadModel } from '../../Models/SignupPayloadModel';
 
 export default function SignupPage() {
     
@@ -26,8 +22,6 @@ export default function SignupPage() {
 
     const submit = () => {
         setloading(true)
-
-        // do axios call
     }
 
     return (
