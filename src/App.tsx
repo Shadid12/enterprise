@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import AppRouter from './Containers/Router';
+import Firebase, { FirebaseContext } from './Containers/Firebase';
+
 
 const App: React.FC = () => {
   return (
-    <AppRouter />
+    <FirebaseContext.Provider value={new Firebase()}>
+      <AppRouter />
+    </FirebaseContext.Provider>
   );
 }
 

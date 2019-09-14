@@ -1,4 +1,7 @@
 import app from 'firebase/app';
+import 'firebase/auth';
+import 'firebase/database';
+import 'firebase/storage';
 import IFirebase from './IFirebase';
 import { SignupPayloadModel } from './../../Models/SignupPayloadModel/index';
 
@@ -15,12 +18,14 @@ const config = {
 export default class Firebase implements IFirebase {
     
     auth: any;
-    db: Object;
+    db: any;
 
     public constructor () {
-        app.initializeApp(config);
-        this.auth = app.auth();
-        this.db = app.database();
+        if(app.apps.length === 0) {
+            app.initializeApp(config);
+            this.auth = app.auth();
+            this.db = app.database();
+        }
     }
 
     public getUserAuth (): Object {

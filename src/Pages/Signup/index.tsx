@@ -1,7 +1,9 @@
 import React, { Fragment, useState  } from 'react';
 import { SignupPayloadModel } from '../../Models/SignupPayloadModel';
+import { withFirebase } from '../../Containers/Firebase'
 
-export default function SignupPage() {
+
+function SignupPageBase(props: any) {
     
     const INITIAL_STATE: SignupPayloadModel = {
         email: '',
@@ -22,6 +24,7 @@ export default function SignupPage() {
 
     const submit = () => {
         setloading(true)
+        console.log('--->', props.firebase)
     }
 
     return (
@@ -36,7 +39,10 @@ export default function SignupPage() {
               <label htmlFor="Enter Password" id="pass">Password:</label>
               <input name="password" type="password" id="pass" onChange={handleChange} />
           </div>
-          <button onSubmit={submit}>Sign up</button>
+          <button onClick={submit}>Sign up</button>
       </Fragment>
     );
 }
+
+const SignupPage = withFirebase(SignupPageBase)
+export default SignupPage
