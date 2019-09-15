@@ -75,22 +75,6 @@ function SignupPageBase(props: any) {
 
 
     return (
-        // <Fragment>
-        //     <Paper className={classes.root}>
-        //         <h1>Sign Up Page</h1>
-        //         <div>
-        //             <label htmlFor="Enter Email" id="email">Email:</label>
-        //             <input name="email" type="email" id="email" onChange={handleChange} />
-        //         </div>
-        //         <br />
-        //         <div>
-        //             <label htmlFor="Enter Password" id="pass">Password:</label>
-        //             <input name="password" type="password" id="pass" onChange={handleChange} />
-        //         </div>
-        //         <br />
-        //         <button onClick={submit}>Sign up</button>
-        //     </Paper>
-        // </Fragment>
         <Container component="main" maxWidth="xs">
             <CssBaseline />
             <div className={classes.paper}>
@@ -99,30 +83,8 @@ function SignupPageBase(props: any) {
                 </Avatar>
                 <Typography component="h1" variant="h5">
                     Sign Up
-        </Typography>
+                </Typography>
                 <form className={classes.form} noValidate>
-                    <TextField
-                        variant="outlined"
-                        margin="normal"
-                        required
-                        fullWidth
-                        id="name"
-                        label="Name"
-                        name="name"
-                        autoComplete="name"
-                        autoFocus
-                    />
-                    <TextField
-                        variant="outlined"
-                        margin="normal"
-                        required
-                        fullWidth
-                        id="number"
-                        label="Patient Number"
-                        name="number"
-                        autoComplete="number"
-                        autoFocus
-                    />
                     <TextField
                         variant="outlined"
                         margin="normal"
@@ -133,6 +95,7 @@ function SignupPageBase(props: any) {
                         name="email"
                         autoComplete="email"
                         autoFocus
+                        onChange={handleChange}
                     />
                     <TextField
                         variant="outlined"
@@ -143,19 +106,21 @@ function SignupPageBase(props: any) {
                         label="Password"
                         type="password"
                         id="password"
-                        autoComplete="current-password"
+                        onChange={handleChange}
                     />
+
                     <TextField
                         variant="outlined"
                         margin="normal"
                         required
                         fullWidth
-                        name="Password2"
-                        label="Re-type Password"
-                        type="password2"
+                        name="password2"
+                        label="Re-Enter Password"
+                        type="password"
                         id="password2"
-                        autoComplete="current-password2"
+                        onChange={handleChange}
                     />
+
                     <Button
                         type="submit"
                         fullWidth
@@ -163,15 +128,21 @@ function SignupPageBase(props: any) {
                         color="primary"
                         className={classes.submit}
                         onClick={submit}
-                    // disabled={passwordValidator}
+                        disabled={loading || 
+                            state.password !== state.password2 ||
+                            state.email === '' ||
+                            state.password !== state.password2 ||
+                            state.password === ''
+                        }
                     >
                         Sign Up
                     </Button>
+
                     <Grid container>
                         <Grid item xs>
                             <Link href="#" variant="body2">
                                 Forgot password?
-              </Link>
+                            </Link>
                         </Grid>
                         <Grid item>
                             <Link href="/signin" variant="body2">
