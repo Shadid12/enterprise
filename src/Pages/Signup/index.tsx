@@ -1,6 +1,8 @@
 import React, { Fragment, useState } from 'react';
 import { ISignupPayloadModel } from '../../Models/ISignupPayloadModel';
 import { withFirebase } from '../../Containers/Firebase'
+import IError from '../../Models/IError';
+import IFirebase from '../../Models/IFirebase';
 
 // Styles 
 import { makeStyles } from '@material-ui/core/styles';
@@ -62,13 +64,25 @@ function SignupPageBase(props: any) {
         false
     );
 
+    const [error, setError] = useState(
+        null
+    );
+
     const handleChange = (event: any) => {
         setState({ ...state, [event.target.name]: event.target.value });
     }
 
     const submit = () => {
         setloading(true)
-        console.log('--->', props.firebase)
+        props.firebase.createUser(state).then( (response:firebase.auth.UserCredential | any) => {
+            if( response.type ) {
+                setError(response)
+            } else {
+                console.log(response)
+                // TODO: go to next protected routes
+            }
+            setloading(false)
+        })
     }
 
     const classes = useStyles();
