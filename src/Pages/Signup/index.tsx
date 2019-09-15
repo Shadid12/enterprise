@@ -1,6 +1,8 @@
 import React, { Fragment, useState } from 'react';
 import { ISignupPayloadModel } from '../../Models/ISignupPayloadModel';
 import { withFirebase } from '../../Containers/Firebase'
+import IError from '../../Models/IError';
+import IFirebase from '../../Models/IFirebase';
 
 
 function SignupPageBase(props: any) {
@@ -18,13 +20,25 @@ function SignupPageBase(props: any) {
         false
     );
 
+    const [error, setError] = useState(
+        null
+    );
+
     const handleChange = (event: any) => {
         setState({ ...state, [event.target.name]: event.target.value });
     }
 
     const submit = () => {
         setloading(true)
-        console.log('--->', props.firebase)
+        props.firebase.createUser(state).then( (response:firebase.auth.UserCredential | any) => {
+            if( response.type ) {
+                setError(response)
+            } else {
+                console.log(response)
+                // TODO: go to next protected routes
+            }
+            setloading(false)
+        })
     }
 
     return (
@@ -39,7 +53,17 @@ function SignupPageBase(props: any) {
                 <label htmlFor="Enter Password" id="pass">Password:</label>
                 <input name="password" type="password" id="pass" onChange={handleChange} />
             </div>
-            <button onClick={submit}>Sign up</button>
+            {loading ? (
+                <div>Loading...</div>
+                ) : (
+                <button onClick={submit}>Sign up</button>      
+                )
+            }
+            {
+                error ? (
+                    <div>This Email is probably taken !!</div>
+                ) : null
+            }
         </Fragment>
     );
 }
