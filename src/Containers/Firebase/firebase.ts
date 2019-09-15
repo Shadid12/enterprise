@@ -2,45 +2,46 @@ import app from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
 import 'firebase/storage';
-import IFirebase from './IFirebase';
-import { SignupPayloadModel } from './../../Models/SignupPayloadModel/index';
+import IFirebase from '../../Models/IFirebase';
+import IConfig from '../../Models/IConfig';
+import { ISignupPayloadModel } from '../../Models/ISignupPayloadModel';
 
-const config = {
-    apiKey: "AIzaSyDEgUSflAoHxQXREocKchDHKLehQ_X8rmM",
-    authDomain: "shadid-test.firebaseapp.com",
-    databaseURL: "https://shadid-test.firebaseio.com",
-    projectId: "shadid-test",
+const config: IConfig = {
+    apiKey: process.env.REACT_APP_API_KEY,
+    authDomain: process.env.REACT_APP_AUTH_DOMAIN,
+    databaseURL: process.env.REACT_APP_DATABASE_URL,
+    projectId: process.env.REACT_APP_PROJECT_ID,
     storageBucket: "",
-    messagingSenderId: "1017057297115",
-    appId: "1:1017057297115:web:17161c8c75e8c45d9ac2fe"
+    messagingSenderId: process.env.REACT_APP_MSG_SENDER_ID,
+    appId: process.env.REACT_APP_MESSAGING_SENDER_ID,
 };
 
 export default class Firebase implements IFirebase {
-    
+
     auth: any;
     db: any;
 
-    public constructor () {
-        if(app.apps.length === 0) {
+    public constructor() {
+        if (app.apps.length === 0) {
             app.initializeApp(config);
             this.auth = app.auth();
             this.db = app.database();
         }
     }
 
-    public getUserAuth (): Object {
+    public getUserAuth(): Object {
         return this.auth;
     }
 
-    public createUser (userData: SignupPayloadModel) {
+    public createUser(userData: ISignupPayloadModel) {
         return new Promise(resolve => {
-          this.auth.createUserWithEmailAndPassword(userData.email, userData.password)
-            .then((res: Promise<firebase.auth.UserCredential>) => {
-                resolve(res);
-            });
+            this.auth.createUserWithEmailAndPassword(userData.email, userData.password)
+                .then((res: Promise<firebase.auth.UserCredential>) => {
+                    resolve(res);
+                });
         })
     }
-    
+
 }
 
 

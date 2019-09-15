@@ -1,11 +1,11 @@
-import React, { Fragment, useState  } from 'react';
-import { SignupPayloadModel } from '../../Models/SignupPayloadModel';
+import React, { Fragment, useState } from 'react';
+import { ISignupPayloadModel } from '../../Models/ISignupPayloadModel';
 import { withFirebase } from '../../Containers/Firebase'
 
 
 function SignupPageBase(props: any) {
-    
-    const INITIAL_STATE: SignupPayloadModel = {
+
+    const INITIAL_STATE: ISignupPayloadModel = {
         email: '',
         password: ''
     };
@@ -28,19 +28,19 @@ function SignupPageBase(props: any) {
     }
 
     return (
-      <Fragment>
-          <h1>Sign Up Page</h1>
-          <div>
-              <label htmlFor="Enter Email" id="email">Email:</label>
-              <input name="email" type="email" id="email" onChange={handleChange} />
-          </div>
-          <br />
-          <div>
-              <label htmlFor="Enter Password" id="pass">Password:</label>
-              <input name="password" type="password" id="pass" onChange={handleChange} />
-          </div>
-          <button onClick={submit}>Sign up</button>
-      </Fragment>
+        <Fragment>
+            <h1>Sign Up Page</h1>
+            <div>
+                <label htmlFor="Enter Email" id="email">Email:</label>
+                <input name="email" type="email" id="email" onChange={handleChange} />
+            </div>
+            <br />
+            <div>
+                <label htmlFor="Enter Password" id="pass">Password:</label>
+                <input name="password" type="password" id="pass" onChange={handleChange} />
+            </div>
+            <button onClick={submit}>Sign up</button>
+        </Fragment>
     );
 }
 

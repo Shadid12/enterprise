@@ -1,4 +1,4 @@
-export type SignupPayloadModel = {
+export type ISignupPayloadModel = {
     email?: string,
     password?: string
 }
