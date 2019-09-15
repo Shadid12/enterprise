@@ -1,31 +1,32 @@
 import app from 'firebase/app';
-import IFirebase from './IFirebase';
+import IFirebase from '../Interfaces/IFirebase';
+import IConfig from '../Interfaces/IConfig';
 
-const config = {
-    apiKey: "AIzaSyDEgUSflAoHxQXREocKchDHKLehQ_X8rmM",
-    authDomain: "shadid-test.firebaseapp.com",
-    databaseURL: "https://shadid-test.firebaseio.com",
-    projectId: "shadid-test",
+const config: IConfig = {
+    apiKey: process.env.REACT_APP_API_KEY,
+    authDomain: process.env.REACT_APP_AUTH_DOMAIN,
+    databaseURL: process.env.REACT_APP_DATABASE_URL,
+    projectId: process.env.REACT_APP_PROJECT_ID,
     storageBucket: "",
     messagingSenderId: "1017057297115",
-    appId: "1:1017057297115:web:17161c8c75e8c45d9ac2fe"
+    appId: process.env.REACT_APP_MESSAGING_SENDER_ID,
 };
 
 export default class Firebase implements IFirebase {
-    
+
     auth: Object;
     db: any;
 
-    public constructor () {
+    public constructor() {
         app.initializeApp(config);
         this.auth = app.auth();
         this.db = app.database();
     }
 
-    public getUserAuth (): Object {
+    public getUserAuth(): Object {
         return this.auth;
     }
-    
+
 }
 
 
