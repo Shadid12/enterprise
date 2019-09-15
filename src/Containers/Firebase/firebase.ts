@@ -2,9 +2,9 @@ import app from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
 import 'firebase/storage';
-import IFirebase from '../Interfaces/IFirebase';
-import IConfig from '../Interfaces/IConfig';
-import { SignupPayloadModel } from './../../Models/SignupPayloadModel/index';
+import IFirebase from '../../Models/IFirebase';
+import IConfig from '../../Models/IConfig';
+import { ISignupPayloadModel } from '../../Models/ISignupPayloadModel';
 
 const config: IConfig = {
     apiKey: process.env.REACT_APP_API_KEY,
@@ -12,7 +12,7 @@ const config: IConfig = {
     databaseURL: process.env.REACT_APP_DATABASE_URL,
     projectId: process.env.REACT_APP_PROJECT_ID,
     storageBucket: "",
-    messagingSenderId: "1017057297115",
+    messagingSenderId: process.env.REACT_APP_MSG_SENDER_ID,
     appId: process.env.REACT_APP_MESSAGING_SENDER_ID,
 };
 
@@ -33,7 +33,7 @@ export default class Firebase implements IFirebase {
         return this.auth;
     }
 
-    public createUser(userData: SignupPayloadModel) {
+    public createUser(userData: ISignupPayloadModel) {
         return new Promise(resolve => {
             this.auth.createUserWithEmailAndPassword(userData.email, userData.password)
                 .then((res: Promise<firebase.auth.UserCredential>) => {
