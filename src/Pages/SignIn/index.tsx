@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from 'react';
-import { ISignupPayloadModel } from '../../Models/ISignupPayloadModel';
+import { ISignInPayloadModel } from '../../Models/ISignupPayloadModel';
 import { withFirebase } from '../../Containers/Firebase'
 
 // Styles 
@@ -28,7 +28,7 @@ const useStyles = makeStyles(theme => ({
         },
     },
     paper: {
-        marginTop: theme.spacing(10),
+        marginTop: theme.spacing(20),
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -46,12 +46,11 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-function SignupPageBase(props: any) {
+function SignInPageBase(props: any) {
 
-    const INITIAL_STATE: ISignupPayloadModel = {
+    const INITIAL_STATE: ISignInPayloadModel = {
         email: '',
-        password: '',
-        password2: ''
+        password: ''
     };
 
     const [state, setState] = useState(
@@ -72,7 +71,6 @@ function SignupPageBase(props: any) {
     }
 
     const classes = useStyles();
-
 
     return (
         // <Fragment>
@@ -98,31 +96,10 @@ function SignupPageBase(props: any) {
                     <LockOutlinedIcon />
                 </Avatar>
                 <Typography component="h1" variant="h5">
-                    Sign Up
+                    Sign in
         </Typography>
+
                 <form className={classes.form} noValidate>
-                    <TextField
-                        variant="outlined"
-                        margin="normal"
-                        required
-                        fullWidth
-                        id="name"
-                        label="Name"
-                        name="name"
-                        autoComplete="name"
-                        autoFocus
-                    />
-                    <TextField
-                        variant="outlined"
-                        margin="normal"
-                        required
-                        fullWidth
-                        id="number"
-                        label="Patient Number"
-                        name="number"
-                        autoComplete="number"
-                        autoFocus
-                    />
                     <TextField
                         variant="outlined"
                         margin="normal"
@@ -145,17 +122,6 @@ function SignupPageBase(props: any) {
                         id="password"
                         autoComplete="current-password"
                     />
-                    <TextField
-                        variant="outlined"
-                        margin="normal"
-                        required
-                        fullWidth
-                        name="Password2"
-                        label="Re-type Password"
-                        type="password2"
-                        id="password2"
-                        autoComplete="current-password2"
-                    />
                     <Button
                         type="submit"
                         fullWidth
@@ -163,10 +129,9 @@ function SignupPageBase(props: any) {
                         color="primary"
                         className={classes.submit}
                         onClick={submit}
-                    // disabled={passwordValidator}
                     >
-                        Sign Up
-                    </Button>
+                        Sign In
+          </Button>
                     <Grid container>
                         <Grid item xs>
                             <Link href="#" variant="body2">
@@ -174,8 +139,8 @@ function SignupPageBase(props: any) {
               </Link>
                         </Grid>
                         <Grid item>
-                            <Link href="/signin" variant="body2">
-                                {"Already have an account? Sign Ip"}
+                            <Link href="#" variant="body2">
+                                {"Don't have an account? Sign Up"}
                             </Link>
                         </Grid>
                     </Grid>
@@ -188,5 +153,5 @@ function SignupPageBase(props: any) {
     );
 }
 
-const SignupPage = withFirebase(SignupPageBase)
-export default SignupPage
+const SignInPage = withFirebase(SignInPageBase)
+export default SignInPage
