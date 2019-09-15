@@ -1,8 +1,6 @@
-import React, { Fragment, useState } from 'react';
+import React, { useState } from 'react';
 import { ISignupPayloadModel } from '../../Models/ISignupPayloadModel';
 import { withFirebase } from '../../Containers/Firebase'
-import IError from '../../Models/IError';
-import IFirebase from '../../Models/IFirebase';
 
 // Styles 
 import { makeStyles } from '@material-ui/core/styles';
