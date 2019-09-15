@@ -33,12 +33,27 @@ export default class Firebase implements IFirebase {
         return this.auth;
     }
 
-    public createUser(userData: ISignupPayloadModel) {
+    public createUser(userData: ISignupPayloadModel): Promise<firebase.auth.UserCredential> {
         return new Promise(resolve => {
             this.auth.createUserWithEmailAndPassword(userData.email, userData.password)
-                .then((res: Promise<firebase.auth.UserCredential>) => {
-                    resolve(res);
-                });
+                .then((res: firebase.auth.UserCredential ) => {
+                    const userId: firebase.User | null = res.user
+                    if(userId) {
+                        let email = userData.email
+                        this.db.ref(`users/${userId.uid}`).set({
+                            email
+                        }).then(() => {
+                            resolve(res);
+                        })
+                    }
+                })
+                .catch( (err: any) => {
+                    let error: any = {
+                        code: 'Email-taken',
+                        type: 'error'
+                    }
+                    resolve(error)
+                })
         })
     }
 

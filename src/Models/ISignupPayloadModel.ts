@@ -1,4 +1,4 @@
 export type ISignupPayloadModel = {
-    email?: string,
+    email: string,
     password?: string
 }
