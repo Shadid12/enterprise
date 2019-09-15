@@ -1,6 +1,10 @@
 import app from 'firebase/app';
+import 'firebase/auth';
+import 'firebase/database';
+import 'firebase/storage';
 import IFirebase from '../Interfaces/IFirebase';
 import IConfig from '../Interfaces/IConfig';
+import { SignupPayloadModel } from './../../Models/SignupPayloadModel/index';
 
 const config: IConfig = {
     apiKey: process.env.REACT_APP_API_KEY,
@@ -14,17 +18,28 @@ const config: IConfig = {
 
 export default class Firebase implements IFirebase {
 
-    auth: Object;
+    auth: any;
     db: any;
 
     public constructor() {
-        app.initializeApp(config);
-        this.auth = app.auth();
-        this.db = app.database();
+        if (app.apps.length === 0) {
+            app.initializeApp(config);
+            this.auth = app.auth();
+            this.db = app.database();
+        }
     }
 
     public getUserAuth(): Object {
         return this.auth;
+    }
+
+    public createUser(userData: SignupPayloadModel) {
+        return new Promise(resolve => {
+            this.auth.createUserWithEmailAndPassword(userData.email, userData.password)
+                .then((res: Promise<firebase.auth.UserCredential>) => {
+                    resolve(res);
+                });
+        })
     }
 
 }
