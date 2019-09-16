@@ -74,8 +74,13 @@ function SignupPageBase(props: any) {
 
     const submit = () => {
         setloading(true)
+<<<<<<< HEAD
         props.firebase.createUser(state).then((response: firebase.auth.UserCredential | any) => {
             if (response.type) {
+=======
+        props.firebase.createUser(state).then( (response:firebase.auth.UserCredential | any) => {
+            if( response.type ) {
+>>>>>>> 487e881ee1ea2cfe7d277db105f5af8b52022fd2
                 setError(response)
             } else {
                 console.log(response)
