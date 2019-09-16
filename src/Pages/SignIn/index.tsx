@@ -73,22 +73,6 @@ function SignInPageBase(props: any) {
     const classes = useStyles();
 
     return (
-        // <Fragment>
-        //     <Paper className={classes.root}>
-        //         <h1>Sign Up Page</h1>
-        //         <div>
-        //             <label htmlFor="Enter Email" id="email">Email:</label>
-        //             <input name="email" type="email" id="email" onChange={handleChange} />
-        //         </div>
-        //         <br />
-        //         <div>
-        //             <label htmlFor="Enter Password" id="pass">Password:</label>
-        //             <input name="password" type="password" id="pass" onChange={handleChange} />
-        //         </div>
-        //         <br />
-        //         <button onClick={submit}>Sign up</button>
-        //     </Paper>
-        // </Fragment>
         <Container component="main" maxWidth="xs">
             <CssBaseline />
             <div className={classes.paper}>
