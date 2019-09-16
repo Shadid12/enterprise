@@ -50,7 +50,7 @@ export default class Firebase implements IFirebase {
                 .catch( (err: any) => {
                     let error: any = {
                         code: 'Email-taken',
-                        type: 'error'
+                        type: err
                     }
                     resolve(error)
                 })
