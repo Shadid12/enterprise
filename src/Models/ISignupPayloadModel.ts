@@ -8,4 +8,3 @@ export type ISignInPayloadModel = {
     email?: string,
     password?: string
 }
-

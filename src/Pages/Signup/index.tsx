@@ -1,6 +1,8 @@
 import React, { Fragment, useState } from 'react';
 import { ISignupPayloadModel } from '../../Models/ISignupPayloadModel';
 import { withFirebase } from '../../Containers/Firebase'
+import IError from '../../Models/IError';
+import IFirebase from '../../Models/IFirebase';
 
 // Styles 
 import { makeStyles } from '@material-ui/core/styles';
@@ -62,35 +64,31 @@ function SignupPageBase(props: any) {
         false
     );
 
+    const [error, setError] = useState(
+        null
+    );
+
     const handleChange = (event: any) => {
         setState({ ...state, [event.target.name]: event.target.value });
     }
 
     const submit = () => {
         setloading(true)
-        console.log('--->', props.firebase)
+        props.firebase.createUser(state).then((response: firebase.auth.UserCredential | any) => {
+            if (response.type) {
+                setError(response)
+            } else {
+                console.log(response)
+                // TODO: go to next protected routes
+            }
+            setloading(false)
+        })
     }
 
     const classes = useStyles();
 
 
     return (
-        // <Fragment>
-        //     <Paper className={classes.root}>
-        //         <h1>Sign Up Page</h1>
-        //         <div>
-        //             <label htmlFor="Enter Email" id="email">Email:</label>
-        //             <input name="email" type="email" id="email" onChange={handleChange} />
-        //         </div>
-        //         <br />
-        //         <div>
-        //             <label htmlFor="Enter Password" id="pass">Password:</label>
-        //             <input name="password" type="password" id="pass" onChange={handleChange} />
-        //         </div>
-        //         <br />
-        //         <button onClick={submit}>Sign up</button>
-        //     </Paper>
-        // </Fragment>
         <Container component="main" maxWidth="xs">
             <CssBaseline />
             <div className={classes.paper}>
@@ -156,17 +154,28 @@ function SignupPageBase(props: any) {
                         id="password2"
                         autoComplete="current-password2"
                     />
-                    <Button
-                        type="submit"
-                        fullWidth
-                        variant="contained"
-                        color="primary"
-                        className={classes.submit}
-                        onClick={submit}
-                    // disabled={passwordValidator}
-                    >
-                        Sign Up
+
+                    {loading ? (
+                        <div>Loading...</div>
+                    ) : (
+                            <Button
+                                type="submit"
+                                fullWidth
+                                variant="contained"
+                                color="primary"
+                                className={classes.submit}
+                                onClick={submit}
+                            // disabled={passwordValidator}
+                            >
+                                Sign Up
                     </Button>
+                        )
+                    }
+                    {
+                        error ? (
+                            <div>This Email is probably taken !!</div>
+                        ) : null
+                    }
                     <Grid container>
                         <Grid item xs>
                             <Link href="#" variant="body2">
@@ -184,7 +193,7 @@ function SignupPageBase(props: any) {
             <Box mt={8}>
                 <Copyright />
             </Box>
-        </Container>
+        </Container >
     );
 }
 

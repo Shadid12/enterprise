@@ -1,10 +1,10 @@
-import React, { Fragment, useState } from 'react';
+import React, { useState } from 'react';
 import { ISignInPayloadModel } from '../../Models/ISignupPayloadModel';
 import { withFirebase } from '../../Containers/Firebase'
 
 // Styles 
 import { makeStyles } from '@material-ui/core/styles';
-import { Paper, Typography, Link, Container, CssBaseline, Avatar, TextField, FormControl, Button, Checkbox, Grid, Box } from '@material-ui/core';
+import { Typography, Link, Container, CssBaseline, Avatar, TextField, Button, Grid, Box } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 
 

@@ -5,9 +5,13 @@ import IOnboardingPayload from '../../Models/IOnboardingPayload';
 function OnBoardingPage(props: any) {
 
     const INITIAL_STATE: IOnboardingPayload = {
-        name: '',
-        prop1: '',
-        prop2: '',
+        username: '',
+        phone: 0,
+        liability_number: 0,
+        years_of_experience: 0,
+        skills: '',
+        education: '',
+        ren_number: 0
     };
 
     const [state, setState] = useState(
