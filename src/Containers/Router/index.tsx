@@ -4,6 +4,7 @@ import SingupPage from '../../Pages/Signup';
 import OnboardingPageWrapped from "../../Pages/Onboard/OnboardingPage";
 import SignInPage from '../../Pages/SignIn';
 import LandingPage from '../../Pages/LandingPage/LandingPage';
+import { AuthUserContext } from '../Session';
 
 export default function AppRouter() {
   return (
@@ -11,8 +12,10 @@ export default function AppRouter() {
       <Switch>
         <Route exact path='/' component={LandingPage} />
         <Route exact path='/signup' component={SingupPage} />
-        <Route path='/onboard' component={OnboardingPageWrapped} />
         <Route path='/signin' component={SignInPage} />
+        <AuthUserContext.Provider value={{}}>
+          <Route path='/onboard' component={OnboardingPageWrapped} />
+        </AuthUserContext.Provider>
       </Switch>
     </BrowserRouter>
   );
