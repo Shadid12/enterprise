@@ -1,6 +1,7 @@
 import React, { Fragment, useState } from 'react';
 import { withFirebase } from '../../Containers/Firebase'
 import IOnboardingPayload from '../../Models/IOnboardingPayload';
+import {withAuthentication} from '../../Containers/Session'
 
 function OnBoardingPage(props: any) {
 
@@ -55,4 +56,4 @@ function OnBoardingPage(props: any) {
 }
 
 const OnBoardingPageWrapped = withFirebase(OnBoardingPage)
-export default OnBoardingPageWrapped
+export default withAuthentication(OnBoardingPageWrapped)
