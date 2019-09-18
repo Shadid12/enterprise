@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
-import { ISignInPayloadModel } from '../../Models/ISignupPayloadModel';
+import React, { useState } from 'react'
+import { ISignInPayloadModel } from '../../Models/ISignupPayloadModel'
 import { withFirebase } from '../../Containers/Firebase'
+import { withRouter } from 'react-router-dom'
 
 // Styles 
 import { makeStyles } from '@material-ui/core/styles';
@@ -65,9 +66,14 @@ function SignInPageBase(props: any) {
         setState({ ...state, [event.target.name]: event.target.value });
     }
 
-    const submit = () => {
+    const submit = async () => {
         setloading(true)
-        console.log('--->', props.firebase)
+        let result = await props.firebase.doSignin(state)
+        if(result.code) {
+           // handle error
+        } else {
+            props.history.push('/onboard')
+        }
     }
 
     const classes = useStyles();
@@ -83,7 +89,6 @@ function SignInPageBase(props: any) {
                     Sign in
         </Typography>
 
-                <form className={classes.form} noValidate>
                     <TextField
                         variant="outlined"
                         margin="normal"
@@ -92,8 +97,7 @@ function SignInPageBase(props: any) {
                         id="email"
                         label="Email Address"
                         name="email"
-                        autoComplete="email"
-                        autoFocus
+                        onChange={handleChange}
                     />
                     <TextField
                         variant="outlined"
@@ -104,7 +108,7 @@ function SignInPageBase(props: any) {
                         label="Password"
                         type="password"
                         id="password"
-                        autoComplete="current-password"
+                        onChange={handleChange}
                     />
                     <Button
                         type="submit"
@@ -115,12 +119,12 @@ function SignInPageBase(props: any) {
                         onClick={submit}
                     >
                         Sign In
-          </Button>
+                    </Button>
                     <Grid container>
                         <Grid item xs>
                             <Link href="#" variant="body2">
                                 Forgot password?
-              </Link>
+                            </Link>
                         </Grid>
                         <Grid item>
                             <Link href="#" variant="body2">
@@ -128,7 +132,6 @@ function SignInPageBase(props: any) {
                             </Link>
                         </Grid>
                     </Grid>
-                </form>
             </div>
             <Box mt={8}>
                 <Copyright />
@@ -137,5 +140,5 @@ function SignInPageBase(props: any) {
     );
 }
 
-const SignInPage = withFirebase(SignInPageBase)
+const SignInPage = withRouter(withFirebase(SignInPageBase))
 export default SignInPage

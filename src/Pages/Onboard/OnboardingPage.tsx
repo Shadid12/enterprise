@@ -29,7 +29,6 @@ function OnBoardingPage(props: any) {
 
     const submit = () => {
         setloading(true)
-        console.log('--->', props.firebase)
     }
 
     return (
