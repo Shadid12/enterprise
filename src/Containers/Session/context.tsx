@@ -1,7 +1,8 @@
 import React from 'react';
 import { withFirebase } from '../Firebase';
+import { UserCredential } from '@firebase/auth-types'
 
-const AuthUserContext = React.createContext<null  | any>(null); 
+const AuthUserContext = React.createContext<any>(null); 
 
 export const withAuthentication = (Component: any) => {
     /** inner classs like Java My Guy */
@@ -11,7 +12,7 @@ export const withAuthentication = (Component: any) => {
         constructor(props: any) {
             super(props);
             this.state = {
-              authUser: null,
+              authUser: null
             }; 
         }
 
