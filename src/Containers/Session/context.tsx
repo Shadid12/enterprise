@@ -33,7 +33,7 @@ export const withAuthentication = (Component: any) => {
         render () {
             return (
                 <AuthUserContext.Consumer>
-                    {authUser => <Component {...this.props} authUser={this.state.authUser} />}
+                    {() => <Component {...this.props} authUser={this.state.authUser} />}
                 </AuthUserContext.Consumer>
             )
         }
