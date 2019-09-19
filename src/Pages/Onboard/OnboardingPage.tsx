@@ -1,7 +1,7 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState } from 'react'
 import { withFirebase } from '../../Containers/Firebase'
-import IOnboardingPayload from '../../Models/IOnboardingPayload';
-import {withAuthentication} from '../../Containers/Session'
+import IOnboardingPayload from '../../Models/IOnboardingPayload'
+import { withAuthentication } from '../../Containers/Session'
 
 function OnBoardingPage(props: any) {
 
@@ -33,7 +33,7 @@ function OnBoardingPage(props: any) {
 
     return (
         <Fragment>
-            <h1>Nurse On Boarding Page</h1>
+            <h1>Some HEader</h1>
             <div>
                 <label htmlFor="Enter Name" id="name">Name: </label>
                 <input name="name" type="name" id="name" onChange={handleChange} />
