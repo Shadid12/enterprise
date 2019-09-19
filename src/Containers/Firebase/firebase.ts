@@ -68,6 +68,10 @@ export default class Firebase implements IFirebase {
         })
     }
 
+    public doSignOut(): void {
+        this.auth.signOut();
+    }
+
 }
 
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import AppRouter from './Containers/Router';
 import Firebase, { FirebaseContext } from './Containers/Firebase';
+import './App.css'
 
 
 const App: React.FC = () => {
