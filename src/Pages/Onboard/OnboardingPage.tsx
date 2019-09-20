@@ -1,13 +1,18 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState } from 'react'
 import { withFirebase } from '../../Containers/Firebase'
-import IOnboardingPayload from '../../Models/IOnboardingPayload';
+import IOnboardingPayload from '../../Models/IOnboardingPayload'
+import { withAuthentication } from '../../Containers/Session'
 
 function OnBoardingPage(props: any) {
 
     const INITIAL_STATE: IOnboardingPayload = {
-        name: '',
-        prop1: '',
-        prop2: '',
+        username: '',
+        phone: 0,
+        liability_number: 0,
+        years_of_experience: 0,
+        skills: '',
+        education: '',
+        ren_number: 0
     };
 
     const [state, setState] = useState(
@@ -24,12 +29,11 @@ function OnBoardingPage(props: any) {
 
     const submit = () => {
         setloading(true)
-        console.log('--->', props.firebase)
     }
 
     return (
         <Fragment>
-            <h1>Nurse On Boarding Page</h1>
+            <h1>Some HEader</h1>
             <div>
                 <label htmlFor="Enter Name" id="name">Name: </label>
                 <input name="name" type="name" id="name" onChange={handleChange} />
@@ -51,4 +55,4 @@ function OnBoardingPage(props: any) {
 }
 
 const OnBoardingPageWrapped = withFirebase(OnBoardingPage)
-export default OnBoardingPageWrapped
+export default withAuthentication(OnBoardingPageWrapped)

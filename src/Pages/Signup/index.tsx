@@ -1,15 +1,41 @@
-import React, { Fragment, useState } from 'react';
+import React, { useState } from 'react';
 import { ISignupPayloadModel } from '../../Models/ISignupPayloadModel';
 import { withFirebase } from '../../Containers/Firebase'
-import IError from '../../Models/IError';
-import IFirebase from '../../Models/IFirebase';
+import {
+    Typography,
+    Link,
+    Container,
+    CssBaseline,
+    Avatar,
+    TextField,
+    Button,
+    Grid,
+    Box
+} from '@material-ui/core';
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 
+// styles 
+import useStyles from './styles'
+
+function Copyright() {
+    return (
+        <Typography variant="body2" color="textSecondary" align="center">
+            {'Copyright © '}
+            <Link color="inherit" href="https://material-ui.com/">
+                Your Website
+        </Link>{' '}
+            {new Date().getFullYear()}
+            {'.'}
+        </Typography>
+    );
+}
 
 function SignupPageBase(props: any) {
 
     const INITIAL_STATE: ISignupPayloadModel = {
         email: '',
-        password: ''
+        password: '',
+        password2: ''
     };
 
     const [state, setState] = useState(
@@ -30,8 +56,8 @@ function SignupPageBase(props: any) {
 
     const submit = () => {
         setloading(true)
-        props.firebase.createUser(state).then( (response:firebase.auth.UserCredential | any) => {
-            if( response.type ) {
+        props.firebase.createUser(state).then((response: firebase.auth.UserCredential | any) => {
+            if (response.type) {
                 setError(response)
             } else {
                 console.log(response)
@@ -41,30 +67,95 @@ function SignupPageBase(props: any) {
         })
     }
 
+    const classes = useStyles();
+
+
     return (
-        <Fragment>
-            <h1>Sign Up Page</h1>
-            <div>
-                <label htmlFor="Enter Email" id="email">Email:</label>
-                <input name="email" type="email" id="email" onChange={handleChange} />
+        <Container component="main" maxWidth="xs">
+            <CssBaseline />
+            <div className={classes.paper}>
+                <Avatar className={classes.avatar}>
+                    <LockOutlinedIcon />
+                </Avatar>
+                <Typography component="h1" variant="h5">
+                    Sign Up
+                </Typography>
+                <form className={classes.form} noValidate>
+                    <TextField
+                        variant="outlined"
+                        margin="normal"
+                        required
+                        fullWidth
+                        id="email"
+                        label="Email Address"
+                        name="email"
+                        autoComplete="email"
+                        autoFocus
+                        onChange={handleChange}
+                    />
+                    <TextField
+                        variant="outlined"
+                        margin="normal"
+                        required
+                        fullWidth
+                        name="password"
+                        label="Password"
+                        type="password"
+                        id="password"
+                        onChange={handleChange}
+                    />
+
+                    <TextField
+                        variant="outlined"
+                        margin="normal"
+                        required
+                        fullWidth
+                        name="password2"
+                        label="Re-Enter Password"
+                        type="password"
+                        id="password2"
+                        onChange={handleChange}
+                    />
+
+                    {loading ? (
+                        <div>Loading...</div>
+                    ) : (
+                            <Button
+                                type="submit"
+                                fullWidth
+                                variant="contained"
+                                color="primary"
+                                className={classes.submit}
+                                onClick={submit}
+                            // disabled={passwordValidator}
+                            >
+                                Sign Up
+                    </Button>
+                        )
+                    }
+                    {
+                        error ? (
+                            <div>This Email is probably taken !!</div>
+                        ) : null
+                    }
+                    <Grid container>
+                        <Grid item xs>
+                            <Link href="#" variant="body2">
+                                Forgot password?
+                            </Link>
+                        </Grid>
+                        <Grid item>
+                            <Link href="/signin" variant="body2">
+                                {"Already have an account? Sign Ip"}
+                            </Link>
+                        </Grid>
+                    </Grid>
+                </form>
             </div>
-            <br />
-            <div>
-                <label htmlFor="Enter Password" id="pass">Password:</label>
-                <input name="password" type="password" id="pass" onChange={handleChange} />
-            </div>
-            {loading ? (
-                <div>Loading...</div>
-                ) : (
-                <button onClick={submit}>Sign up</button>      
-                )
-            }
-            {
-                error ? (
-                    <div>This Email is probably taken !!</div>
-                ) : null
-            }
-        </Fragment>
+            <Box mt={8}>
+                <Copyright />
+            </Box>
+        </Container >
     );
 }
 

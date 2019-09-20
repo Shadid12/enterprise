@@ -5,6 +5,7 @@ import 'firebase/storage';
 import IFirebase from '../../Models/IFirebase';
 import IConfig from '../../Models/IConfig';
 import { ISignupPayloadModel } from '../../Models/ISignupPayloadModel';
+import { UserCredential } from '@firebase/auth-types'
 
 const config: IConfig = {
     apiKey: process.env.REACT_APP_API_KEY,
@@ -50,11 +51,25 @@ export default class Firebase implements IFirebase {
                 .catch( (err: any) => {
                     let error: any = {
                         code: 'Email-taken',
-                        type: 'error'
+                        type: err
                     }
                     resolve(error)
                 })
         })
+    }
+
+    public doSignin(payload: ISignupPayloadModel): Promise<UserCredential> {
+        return new Promise(resolve => {
+            this.auth.signInWithEmailAndPassword(payload.email, payload.password).then((res: UserCredential) => {
+              resolve(res);
+            }).catch((err: any) => {
+              resolve(err);
+            })
+        })
+    }
+
+    public doSignOut(): void {
+        this.auth.signOut();
     }
 
 }

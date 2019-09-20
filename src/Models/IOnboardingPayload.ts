@@ -1,5 +1,9 @@
 export default interface IOnboardingPayload {
-    name?: string,
-    prop1?: string,
-    prop2?: string,
+    username: string,
+    phone: number,
+    liability_number: number,
+    years_of_experience: number,
+    skills: string,
+    education: string,
+    ren_number: number
 }
