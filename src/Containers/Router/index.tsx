@@ -6,6 +6,7 @@ import SignInPage from '../../Pages/SignIn';
 import LandingPage from '../../Pages/LandingPage/LandingPage';
 import { AuthUserContext } from '../Session';
 import Navigation from '../../Containers/Navigation';
+import ClientPage from '../../Pages/Clients';
 
 export default function AppRouter() {
   return (
@@ -17,6 +18,7 @@ export default function AppRouter() {
         <AuthUserContext.Provider value={{}}>
           <Navigation />
           <Route path='/onboard' component={OnboardingPageWrapped} />
+          <Route path='/clients' component={ClientPage} />
         </AuthUserContext.Provider>
       </Switch>
     </BrowserRouter>
