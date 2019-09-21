@@ -108,7 +108,7 @@ function OnBoardingPage(props: any) {
                         required
                         fullWidth
                         name="years_of_experience"
-                        label="years_of_experience"
+                        label="Years Of Experience"
                         type="number"
                         id="years_of_experience"
                         autoComplete="years_of_experience"
