@@ -7,6 +7,7 @@ import LandingPage from '../../Pages/LandingPage/LandingPage';
 import { AuthUserContext } from '../Session';
 import Navigation from '../../Containers/Navigation';
 import ClientPage from '../../Pages/Clients';
+import SchedulePage from '../../Pages/Scheduler/index';
 
 export default function AppRouter() {
   return (
@@ -19,6 +20,7 @@ export default function AppRouter() {
           <Navigation />
           <Route path='/onboard' component={OnboardingPageWrapped} />
           <Route path='/clients' component={ClientPage} />
+          <Route path='/schedule/:id' component={SchedulePage} />
         </AuthUserContext.Provider>
       </Switch>
     </BrowserRouter>
