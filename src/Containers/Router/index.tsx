@@ -14,7 +14,7 @@ export default function AppRouter() {
     <BrowserRouter>
       <Switch>
         <Route exact path='/' component={LandingPage} />
-        <Route exact path='/signup' component={SingupPage} />
+        <Route path='/signup' component={SingupPage} />
         <Route path='/signin' component={SignInPage} />
         <AuthUserContext.Provider value={{}}>
           <Navigation />

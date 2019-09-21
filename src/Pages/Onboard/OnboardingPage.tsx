@@ -1,7 +1,38 @@
-import React, { Fragment, useState } from 'react'
+import React, { useState } from 'react';
 import { withFirebase } from '../../Containers/Firebase'
-import IOnboardingPayload from '../../Models/IOnboardingPayload'
+import IOnboardingPayload from '../../Models/IOnboardingPayload';
 import { withAuthentication } from '../../Containers/Session'
+import { makeStyles } from '@material-ui/core/styles';
+
+// Meterial UI
+import { Typography, Link, Container, CssBaseline, Avatar, TextField, Button, Grid, Box } from '@material-ui/core';
+
+
+const useStyles = makeStyles(theme => ({
+    '@global': {
+        body: {
+            backgroundColor: theme.palette.common.white,
+        },
+    },
+    paper: {
+        marginTop: theme.spacing(10),
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+    },
+    avatar: {
+        margin: theme.spacing(1),
+        backgroundColor: theme.palette.secondary.main,
+    },
+    form: {
+        width: '100%', // Fix IE 11 issue.
+        marginTop: theme.spacing(1),
+    },
+    submit: {
+        margin: theme.spacing(3, 0, 2),
+    },
+}));
+
 
 function OnBoardingPage(props: any) {
 
@@ -30,27 +61,93 @@ function OnBoardingPage(props: any) {
     const submit = () => {
         setloading(true)
     }
-
+    const classes = useStyles();
     return (
-        <Fragment>
-            <h1>Some HEader</h1>
-            <div>
-                <label htmlFor="Enter Name" id="name">Name: </label>
-                <input name="name" type="name" id="name" onChange={handleChange} />
+        <Container component="main" maxWidth="xs">
+            <CssBaseline />
+            <div className={classes.paper}>
+                <Typography component="h1" variant="h2">On Boarding</Typography>
+                <form className={classes.form} noValidate>
+                    <TextField
+                        variant="outlined"
+                        margin="normal"
+                        required
+                        fullWidth
+                        id="username"
+                        label="Username"
+                        name="username"
+                        autoComplete="username"
+                        autoFocus
+                    />
+                    <TextField
+                        variant="outlined"
+                        margin="normal"
+                        required
+                        fullWidth
+                        name="phone"
+                        label="Phone Number"
+                        type="number"
+                        id="phone"
+                        autoComplete="phone"
+                    />
+                    <TextField
+                        variant="outlined"
+                        margin="normal"
+                        required
+                        fullWidth
+                        name="liability_number"
+                        label="Liability Number"
+                        type="number"
+                        id="liability_number"
+                        autoComplete="liability_number"
+                    />
+                    {/* SKILLZ COMPONENT */}
+                    <TextField
+                        variant="outlined"
+                        margin="normal"
+                        required
+                        fullWidth
+                        name="years_of_experience"
+                        label="years_of_experience"
+                        type="number"
+                        id="years_of_experience"
+                        autoComplete="years_of_experience"
+                    />
+                    <TextField
+                        variant="outlined"
+                        margin="normal"
+                        required
+                        fullWidth
+                        name="education"
+                        label="Education"
+                        type="string"
+                        id="education"
+                        autoComplete="Education"
+                    />
+                    <TextField
+                        variant="outlined"
+                        margin="normal"
+                        required
+                        fullWidth
+                        name="ren_number"
+                        label="REN Nnumber"
+                        type="number"
+                        id="ren_number"
+                        autoComplete="ren_number"
+                    />
+                    <Button
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        color="primary"
+                        className={classes.submit}
+                        onClick={submit}
+                    >
+                        Sign Up
+                    </Button>
+                </form>
             </div>
-            <br />
-            <div>
-                <label htmlFor="Enter Prop1" id="prop1">Prop1: </label>
-                <input name="prop1" type="text" id="prop1" onChange={handleChange} />
-            </div>
-            <br />
-            <div>
-                <label htmlFor="Enter Prop2" id="prop2">Prop2: </label>
-                <input name="prop2" type="text" id="prop2" onChange={handleChange} />
-            </div>
-            <br />
-            <button onClick={submit}>Sign up</button>
-        </Fragment>
+        </Container>
     );
 }
 
