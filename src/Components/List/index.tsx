@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { Grid, Typography, List, ListItem, ListItemText, ListItemSecondaryAction, Button } from '@material-ui/core';
 import { withFirebase } from '../../Containers/Firebase';
+import { withRouter } from 'react-router';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -31,10 +32,19 @@ function InteractiveList(props: any) {
     
     useEffect(() => {
         props.firebase.getNurses().then((response: any) => {
-            console.log('---->>>', response)
             setItems(response)
         })
     }, [])
+
+
+    function goToProfile(item: any): ((event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void) | undefined {
+        return () => {
+            props.history.push(`/profile/${item.id}`);
+        };
+    }
+
+
+
     if(!items) {
         return (
             <div>Loading....</div>
@@ -45,13 +55,13 @@ function InteractiveList(props: any) {
             <Grid container spacing={2}>
                 <Grid item xs={12} md={6}>
                     <Typography variant="h6" className={classes.title}>
-                        Avatar with text and icon
+                        Available Care Givers
                     </Typography>
                     <div className={classes.demo}>
                         {
                             items.map((item: any) => (
                                 <List key={item.id} className={classes.list}>
-                                    <ListItem button>
+                                    <ListItem button onClick={goToProfile(item)}>
                                         <ListItemText
                                             primary={`${item.email}`}
                                             secondary={`${item.isNurse}`}
@@ -68,7 +78,6 @@ function InteractiveList(props: any) {
             </Grid>
         </div>
     )
-
 }
 
-export default withFirebase(InteractiveList)
+export default withRouter(withFirebase(InteractiveList))
