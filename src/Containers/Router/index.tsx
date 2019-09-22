@@ -8,6 +8,7 @@ import { AuthUserContext } from '../Session';
 import Navigation from '../../Containers/Navigation';
 import ClientPage from '../../Pages/Clients';
 import SchedulePage from '../../Pages/Scheduler/index';
+import ProfileView from "../../Components/ProfileView";
 
 export default function AppRouter() {
   return (
@@ -21,6 +22,7 @@ export default function AppRouter() {
           <Route path='/onboard' component={OnboardingPageWrapped} />
           <Route path='/clients' component={ClientPage} />
           <Route path='/schedule/:id' component={SchedulePage} />
+          <Route path='/profile/:id' component={ProfileView} />
         </AuthUserContext.Provider>
       </Switch>
     </BrowserRouter>
