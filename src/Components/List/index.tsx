@@ -35,28 +35,6 @@ function InteractiveList(props: any) {
             setItems(response)
         })
     }, [])
-    // let items = [
-    //     {
-    //         id: '1',
-    //         name: 'shaddw',
-    //         desc: 'adwdjjdjwjd'
-    //     },
-    //     {
-    //         id: '2',
-    //         name: 'asdwaddw',
-    //         desc: 'adwdjjdjwjd'
-    //     },
-    //     {
-    //         id: '3',
-    //         name: 'shwawwew',
-    //         desc: 'adwdjjdjwjd'
-    //     },
-    //     {
-    //         id: '4',
-    //         name: 'shdwdw',
-    //         desc: 'adwdjjdjwjd'
-    //     }
-    // ]
     if(!items) {
         return (
             <div>Loading....</div>
