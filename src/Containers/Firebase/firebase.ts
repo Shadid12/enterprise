@@ -6,6 +6,7 @@ import IFirebase from '../../Models/IFirebase';
 import IConfig from '../../Models/IConfig';
 import { ISignupPayloadModel } from '../../Models/ISignupPayloadModel';
 import { UserCredential } from '@firebase/auth-types';
+import { DataSnapshot } from '@firebase/database-types';
 
 const config: IConfig = {
     apiKey: process.env.REACT_APP_API_KEY,
@@ -85,6 +86,15 @@ export default class Firebase implements IFirebase {
                     val.push(newObject)
                 }
                 resolve(val)
+            })
+        })
+    }
+
+    public getUserById(id: string): Promise<DataSnapshot> {
+        return new Promise(resolve => {
+            const ref = this.db.ref(`/users/${id}`)
+            ref.on('value', (snapshot:DataSnapshot) => {
+                resolve(snapshot.val())
             })
         })
     }
