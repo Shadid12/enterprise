@@ -17,6 +17,7 @@ const useStyles = makeStyles(theme => ({
     },
     title: {
       flexGrow: 1,
+      justifyContent: 'end'
     },
 }));
 
@@ -28,13 +29,23 @@ function Navigation(props: any) {
         firebase.doSignOut()
         props.history.push('/')
     }
+
+    function goto(route: string): ((event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void) | undefined {
+        return () => props.history.push(route);
+    }
+
     return(
         <div className={classes.root}>
             <AppBar position="static">
                 <Toolbar>
-                <Typography variant="h6" className={classes.title}>
-                    News
-                </Typography>
+                <div  className={classes.title}>
+                    <Button 
+                        color="inherit"
+                        onClick={goto('/')}
+                    >
+                        Home
+                    </Button>
+                </div>
                 {
                     props.authUser  === 'not signed in' ? (
                         <Button color="inherit" onClick={() => props.history.push('/signin')}>Sign  in</Button>

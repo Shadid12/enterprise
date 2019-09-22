@@ -11,24 +11,11 @@ const IMG = require('../../assets/mim.png')
 const initialState = { signedIn: true }
 
 const LandingPage = (state = initialState) => {
-    // switch (initialState.signedIn) {
-    //     case true:
-    //         return
-    //         withFirebase(<div>
-    //             <h1>YO</h1>
-    //         </div>)
-    //     case false:
-    //         return (
-    //             <div>
-    //                 <h1>YO</h1>
-    //             </div>
-    //         )
-    // }
     return (
         <div>
             <img src={IMG} ></img>
             <a href="/signup"> Sign Up </a>
-            <a href="/signip"> Sign In </a>
+            <a href="/signin"> Sign In </a>
             <a href="/onboard"> onboard </a>
             <a href="/schedule/123456"> Schedule </a>
             

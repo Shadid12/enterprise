@@ -41,8 +41,10 @@ export default class Firebase implements IFirebase {
                     const userId: firebase.User | null = res.user
                     if(userId) {
                         let email = userData.email
+                        let isNurse = userData.isNurse
                         this.db.ref(`users/${userId.uid}`).set({
-                            email
+                            email,
+                            isNurse
                         }).then(() => {
                             resolve(res);
                         })
