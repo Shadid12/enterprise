@@ -1,7 +1,8 @@
 export type ISignupPayloadModel = {
     email?: string,
     password?: string,
-    password2?: string
+    password2?: string,
+    isNurse?: boolean
 }
 
 export type ISignInPayloadModel = {

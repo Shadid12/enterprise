@@ -10,7 +10,9 @@ import {
     TextField,
     Button,
     Grid,
-    Box
+    Box,
+    Checkbox,
+    FormControlLabel
 } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 
@@ -35,7 +37,8 @@ function SignupPageBase(props: any) {
     const INITIAL_STATE: ISignupPayloadModel = {
         email: '',
         password: '',
-        password2: ''
+        password2: '',
+        isNurse: false
     };
 
     const [state, setState] = useState(
@@ -50,9 +53,13 @@ function SignupPageBase(props: any) {
         null
     );
 
-    const handleChange = (event: any) => {
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setState({ ...state, [event.target.name]: event.target.value });
     }
+
+    const handleCheckBox = (name: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
+        setState({ ...state, [name]: event.target.checked });
+    };
 
     const submit = () => {
         setloading(true)
@@ -116,6 +123,18 @@ function SignupPageBase(props: any) {
                         id="password2"
                         onChange={handleChange}
                     />
+
+                    <FormControlLabel
+                        control={
+                            <Checkbox
+                                checked={state.isNurse}
+                                onChange={handleCheckBox('isNurse')}
+                                value={state.isNurse}
+                            />
+                        }
+                        label="Check if you are Signinup as a Nurse"
+                    />
+
 
                     {loading ? (
                         <div>Loading...</div>

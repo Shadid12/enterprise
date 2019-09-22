@@ -30,6 +30,8 @@ const LandingPage = (state = initialState) => {
             <a href="/signup"> Sign Up </a>
             <a href="/signip"> Sign In </a>
             <a href="/onboard"> onboard </a>
+            <a href="/schedule/123456"> Schedule </a>
+            
 
             <ListView></ListView>
 
