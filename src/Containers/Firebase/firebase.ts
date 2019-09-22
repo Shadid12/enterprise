@@ -5,7 +5,7 @@ import 'firebase/storage';
 import IFirebase from '../../Models/IFirebase';
 import IConfig from '../../Models/IConfig';
 import { ISignupPayloadModel } from '../../Models/ISignupPayloadModel';
-import { UserCredential } from '@firebase/auth-types'
+import { UserCredential } from '@firebase/auth-types';
 
 const config: IConfig = {
     apiKey: process.env.REACT_APP_API_KEY,
@@ -41,8 +41,10 @@ export default class Firebase implements IFirebase {
                     const userId: firebase.User | null = res.user
                     if(userId) {
                         let email = userData.email
+                        let isNurse = userData.isNurse
                         this.db.ref(`users/${userId.uid}`).set({
-                            email
+                            email,
+                            isNurse
                         }).then(() => {
                             resolve(res);
                         })
@@ -70,6 +72,21 @@ export default class Firebase implements IFirebase {
 
     public doSignOut(): void {
         this.auth.signOut();
+    }
+
+    public getNurses(): Promise<any> {
+        return new Promise(resolve => {
+            const ref = this.db.ref('/users')
+            ref.orderByChild('isNurse').equalTo(true).on('value', (snapshot: any) => {
+                const val: any = []
+                for (let [key, value] of Object.entries(snapshot.val())) {
+                    let newObject: any = value
+                    newObject.id = key
+                    val.push(newObject)
+                }
+                resolve(val)
+            })
+        })
     }
 
 }

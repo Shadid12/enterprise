@@ -1,6 +1,7 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { Grid, Typography, List, ListItem, ListItemText, ListItemSecondaryAction, Button } from '@material-ui/core';
+import { withFirebase } from '../../Containers/Firebase';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -22,31 +23,23 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-export default function InteractiveList() {
+function InteractiveList(props: any) {
 
     const classes = useStyles();
-    let items = [
-        {
-            id: '1',
-            name: 'shaddw',
-            desc: 'adwdjjdjwjd'
-        },
-        {
-            id: '2',
-            name: 'asdwaddw',
-            desc: 'adwdjjdjwjd'
-        },
-        {
-            id: '3',
-            name: 'shwawwew',
-            desc: 'adwdjjdjwjd'
-        },
-        {
-            id: '4',
-            name: 'shdwdw',
-            desc: 'adwdjjdjwjd'
-        }
-    ]
+
+    const [items, setItems] = useState();
+    
+    useEffect(() => {
+        props.firebase.getNurses().then((response: any) => {
+            console.log('---->>>', response)
+            setItems(response)
+        })
+    }, [])
+    if(!items) {
+        return (
+            <div>Loading....</div>
+        )
+    }
     return (
         <div className={classes.root}>
             <Grid container spacing={2}>
@@ -56,16 +49,16 @@ export default function InteractiveList() {
                     </Typography>
                     <div className={classes.demo}>
                         {
-                            items.map((item) => (
+                            items.map((item: any) => (
                                 <List key={item.id} className={classes.list}>
                                     <ListItem button>
                                         <ListItemText
-                                            primary={`${item.name}`}
-                                            secondary={`${item.desc}`}
+                                            primary={`${item.email}`}
+                                            secondary={`${item.isNurse}`}
                                         />
                                     </ListItem>
                                     <ListItemSecondaryAction>
-                                        <Button color="primary">Approve</Button>
+                                        <Button color="primary">Schedule</Button>
                                     </ListItemSecondaryAction>
                                 </List>
                             ))
@@ -77,3 +70,5 @@ export default function InteractiveList() {
     )
 
 }
+
+export default withFirebase(InteractiveList)
