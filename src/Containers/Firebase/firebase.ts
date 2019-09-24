@@ -113,6 +113,7 @@ export default class Firebase implements IFirebase {
         return new Promise(resolve => {
             const ref = this.db.ref(`/schedule/${id}`)
             ref.update(payload)
+            resolve()
         })
     }
 

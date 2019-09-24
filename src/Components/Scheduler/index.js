@@ -331,13 +331,13 @@ class Demo extends React.PureComponent {
     this.props.firebase.getScheduleById(id.id).then((res) => {
       if(!!res) {
         const newData = []
-        // for (let [key, value] of Object.entries(res)) {
-        //     let newObject = value
-        //     newObject.id = key
-        //     newData.push(newObject)
-        // }
-        console.log('res', res)
-        // this.setState({ data: newData })
+        for (let [key, value] of Object.entries(res)) {
+            let newObject = value
+            newObject.id = key
+            newData.push(newObject)
+        }
+        console.log('res', newData)
+        this.setState({ data: newData })
       }
     })
   }
@@ -404,7 +404,8 @@ class Demo extends React.PureComponent {
       }
       const id = this.props.match.params
       console.log('DAta', data)
-      this.props.firebase.setSchedulebyId(id.id, data)
+      this.props.firebase.setSchedulebyId(id.id, data).then((res) => {
+      })
       return { data, addedAppointment: {} };
     });
   }
