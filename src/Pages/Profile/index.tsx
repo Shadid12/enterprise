@@ -12,15 +12,23 @@ const ProfilePage = (props: any) => {
     useEffect(() => {
         const id = props.match.params
         props.firebase.getUserById(id.id).then((response: IUserModel) => {
-            console.log('---->', response)
-            setState({user: response})
+            let user = response
+            user.id = id.id
+            setState({user})
+
+            // props.updateUserState(user)
         })
+
     },[])
 
 
     return (
         <div>
             <BasicInfo />
+            <button onClick={() => {
+                const id = props.match.params
+                props.history.push(`/schedule/${id.id}`)
+            }}>Book Care</button>
         </div>
     )
 };

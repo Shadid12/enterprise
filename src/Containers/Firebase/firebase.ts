@@ -99,6 +99,24 @@ export default class Firebase implements IFirebase {
         })
     }
 
+    public getScheduleById(id: string): Promise<DataSnapshot> {
+        return new Promise(resolve => {
+            const ref = this.db.ref(`/schedule/${id}`)
+            ref.on('value', (snapshot:DataSnapshot) => {
+                resolve(snapshot.val())
+            })
+        })
+    }
+
+    public setSchedulebyId(id: string, payload: any): Promise<DataSnapshot> {
+        console.log('____>>>', payload)
+        return new Promise(resolve => {
+            const ref = this.db.ref(`/schedule/${id}`)
+            ref.update(payload)
+            resolve()
+        })
+    }
+
 }
 
 

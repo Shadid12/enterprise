@@ -1,6 +1,5 @@
 import React from 'react';
 import { withFirebase } from '../Firebase';
-import { UserCredential } from '@firebase/auth-types'
 
 const AuthUserContext = React.createContext<any>(null); 
 

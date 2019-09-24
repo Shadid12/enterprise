@@ -36,6 +36,8 @@ import CalendarToday from '@material-ui/icons/CalendarToday';
 import Create from '@material-ui/icons/Create';
 
 import { appointments } from './appointments';
+import { withFirebase } from '../../Containers/Firebase';
+import { withRouter } from 'react-router';
 
 const containerStyles = theme => ({
   container: {
@@ -324,6 +326,22 @@ class Demo extends React.PureComponent {
     });
   }
 
+  componentDidMount() {
+    const id = this.props.match.params
+    this.props.firebase.getScheduleById(id.id).then((res) => {
+      if(!!res) {
+        const newData = []
+        for (let [key, value] of Object.entries(res)) {
+            let newObject = value
+            newObject.id = key
+            newData.push(newObject)
+        }
+        console.log('res', newData)
+        this.setState({ data: newData })
+      }
+    })
+  }
+
   componentDidUpdate() {
     this.appointmentForm.update();
   }
@@ -384,6 +402,10 @@ class Demo extends React.PureComponent {
         this.setDeletedAppointmentId(deleted);
         this.toggleConfirmationVisible();
       }
+      const id = this.props.match.params
+      console.log('DAta', data)
+      this.props.firebase.setSchedulebyId(id.id, data).then((res) => {
+      })
       return { data, addedAppointment: {} };
     });
   }
@@ -477,4 +499,6 @@ class Demo extends React.PureComponent {
   }
 }
 
-export default withStyles(styles, { name: 'EditingDemo' })(Demo);
+export default withRouter(withFirebase(
+  withStyles(styles, { name: 'EditingDemo' })(Demo)
+))
