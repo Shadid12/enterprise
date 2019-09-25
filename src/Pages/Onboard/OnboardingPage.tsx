@@ -143,7 +143,7 @@ function OnBoardingPage(props: any) {
                         className={classes.submit}
                         onClick={submit}
                     >
-                        Sign Up
+                        Enroll
                     </Button>
                 </form>
             </div>

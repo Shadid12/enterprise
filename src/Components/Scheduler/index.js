@@ -417,9 +417,39 @@ class Demo extends React.PureComponent {
       confirmationVisible,
       editingFormVisible,
       startDayHour,
-      endDayHour,
+      endDayHour
     } = this.state;
     const { classes } = this.props;
+
+    console.log('data',data)
+
+    const Appointment = ({
+      children, style, ...restProps
+    }) => {
+      let status =  restProps.data.status
+      let color = 'default'
+
+      if(status) {
+        if(status === 'pending') {
+          color = '#F6AE2D'
+        }
+        if(status === 'reject') {
+          color = '#c31f3e'
+        }
+      }
+      return (
+        <Appointments.Appointment
+          {...restProps}
+          style={{
+            ...style,
+            backgroundColor: color,
+            borderRadius: '8px',
+          }}
+        >
+          {children}
+        </Appointments.Appointment>
+      );
+    }
 
     return (
       <Paper>
@@ -442,7 +472,9 @@ class Demo extends React.PureComponent {
           <MonthView />
           <AllDayPanel />
           <EditRecurrenceMenu />
-          <Appointments />
+          <Appointments 
+            appointmentComponent={Appointment}
+          />
           <AppointmentTooltip
             showOpenButton
             showCloseButton
