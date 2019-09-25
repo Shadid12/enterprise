@@ -7,7 +7,7 @@ function SchedulePage (props: any) {
 
     return (
         <div>
-            <h1>Scheduler Title</h1>
+            <h1>Shadid's Schedule</h1>
             <AppointmentFormContainerBasic />
         </div>
     )
