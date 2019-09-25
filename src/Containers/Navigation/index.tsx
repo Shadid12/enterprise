@@ -1,11 +1,11 @@
 import React, { Fragment, useState } from 'react'
 import { withAuthentication } from '../../Containers/Session'
-import IAuthModel from '../../Models/IAuth'
 import AppBar from '@material-ui/core/AppBar';
 import { makeStyles, Typography, Button } from '@material-ui/core';
 import Toolbar from '@material-ui/core/Toolbar';
 import IFirebase from '../../Models/IFirebase';
 import { withRouter } from 'react-router-dom';
+import { SnackbarProvider, VariantType, useSnackbar } from 'notistack';
 
 
 const useStyles = makeStyles(theme => ({
@@ -24,6 +24,13 @@ const useStyles = makeStyles(theme => ({
 
 function Navigation(props: any) {
     const classes = useStyles();
+    const { enqueueSnackbar } = useSnackbar();
+
+    const handleClickVariant = (variant: VariantType) => () => {
+        // variant could be success, error, warning, info, or default
+        enqueueSnackbar('You got a new  schedule', { variant });
+      };
+
     const  signout = () => {
         const firebase: IFirebase = props.firebase;
         firebase.doSignOut()
@@ -45,6 +52,7 @@ function Navigation(props: any) {
                     >
                         Home
                     </Button>
+                    <Button onClick={handleClickVariant('warning')}>Notification</Button>
                 </div>
                 {
                     props.authUser  === 'not signed in' ? (

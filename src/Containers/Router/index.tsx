@@ -9,6 +9,7 @@ import Navigation from '../../Containers/Navigation';
 import ClientPage from '../../Pages/Clients';
 import SchedulePage from '../../Pages/Scheduler/index';
 import ProfilePage from '../../Pages/Profile/index';
+import { SnackbarProvider } from 'notistack';
 
 export default function AppRouter() {
   return (
@@ -18,7 +19,9 @@ export default function AppRouter() {
         <Route path='/signup' component={SingupPage} />
         <Route path='/signin' component={SignInPage} />
         <AuthUserContext.Provider value={{}}>
-          <Navigation />
+          <SnackbarProvider maxSnack={3}>
+            <Navigation />
+          </SnackbarProvider>
           <Route path='/onboard' component={OnboardingPageWrapped} />
           <Route path='/clients' component={ClientPage} />
           <Route path='/schedule/:id' component={SchedulePage} />
