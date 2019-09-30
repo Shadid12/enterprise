@@ -7,6 +7,7 @@ import IConfig from '../../Models/IConfig';
 import { ISignupPayloadModel } from '../../Models/ISignupPayloadModel';
 import { UserCredential } from '@firebase/auth-types';
 import { DataSnapshot } from '@firebase/database-types';
+import { IUserInfo } from '../../Models/IUserInfo';
 
 const config: IConfig = {
     apiKey: process.env.REACT_APP_API_KEY,
@@ -109,9 +110,16 @@ export default class Firebase implements IFirebase {
     }
 
     public setSchedulebyId(id: string, payload: any): Promise<DataSnapshot> {
-        console.log('____>>>', payload)
         return new Promise(resolve => {
             const ref = this.db.ref(`/schedule/${id}`)
+            ref.update(payload)
+            resolve()
+        })
+    }
+
+    public updateUserInfo(payload: IUserInfo): Promise<DataSnapshot> {
+        return new Promise(resolve => {
+            const ref = this.db.ref(`/users/${payload.id}`)
             ref.update(payload)
             resolve()
         })
