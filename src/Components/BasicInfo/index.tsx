@@ -84,17 +84,25 @@ export default function BasicInfo(props: any) {
                                 value={state.ren}
                                 onChange={changeInput()}
                             />
-                            <Button color="primary" onClick={() => {
-                                let payload: IUserInfo = {
-                                    username: state.username,
-                                    email: state.email,
-                                    ren: state.ren,
-                                    id: props.user.id
-                                }
-                                props.update(payload)
+                            <div>
+                            {
+                                props.authUserId === props.user.id ? (
+                                    <Button 
+                                        color="primary" 
+                                        onClick={updateUserInfo()}
+                                    >
+                                        Update
+                                    </Button>
+                                ) : (
+                                    null
+                                )
+                            }
+                            <Button color="secondary" onClick={() => {
+                                setState({...state, isEdit: false})
                             }}>
-                                Update
+                                Cancel
                             </Button>
+                            </div>
                         </div>
                         </Paper>
                     </Grid>
@@ -113,9 +121,15 @@ export default function BasicInfo(props: any) {
                                 <div>
                                     <span>REN: {props.user.ren}</span>
                                 </div>
-                                <Button color="secondary" onClick={updateView}>
-                                    Update Info
-                                </Button>
+                                {
+                                    props.authUserId === props.user.id ? (
+                                        <Button color="secondary" onClick={updateView}>
+                                            Update Info
+                                        </Button>
+                                    ) : (
+                                        null
+                                    )
+                                }
                             </div>
                         </Paper>
                     </Grid>
@@ -126,6 +140,18 @@ export default function BasicInfo(props: any) {
 
     )
 
+
+    function updateUserInfo(): ((event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void) | undefined {
+        return () => {
+            let payload: IUserInfo = {
+                username: state.username,
+                email: state.email,
+                ren: state.ren,
+                id: props.user.id
+            };
+            props.update(payload);
+        };
+    }
 
     function changeInput(): ((event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void) | undefined {
         return (event) => {

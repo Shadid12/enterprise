@@ -5,6 +5,7 @@ import { withRouter } from 'react-router';
 import IUserModel from '../../Models/IUserModel';
 import { CircularProgress, makeStyles, createStyles, Theme } from '@material-ui/core';
 import { IUserInfo } from '../../Models/IUserInfo';
+import { withAuthentication } from '../../Containers/Session';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -44,12 +45,17 @@ const ProfilePage = (props: any) => {
         })
     };
 
+    if(!props.authUser) {
+        return <div>Not Logged  in</div>
+    }
+
     return (
+        
         <div>
             {loading ? (
                 <CircularProgress className={classes.progress} />
                 ) : 
-                <BasicInfo user={state.user} update={updateUserInfo}/>
+                <BasicInfo user={state.user} update={updateUserInfo} authUserId={props.authUser.uid}/>
             } 
             <button onClick={() => {
                 const id = props.match.params
@@ -61,4 +67,4 @@ const ProfilePage = (props: any) => {
 
 
 
-export default withRouter(withFirebase(ProfilePage));
+export default withRouter(withAuthentication(withFirebase(ProfilePage)));
