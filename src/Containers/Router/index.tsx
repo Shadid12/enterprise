@@ -10,7 +10,8 @@ import ClientPage from '../../Pages/Clients';
 import SchedulePage from '../../Pages/Scheduler/index';
 import ProfilePage from '../../Pages/Profile/index';
 import { SnackbarProvider } from 'notistack';
-
+import ChatPage from '../../Pages/Chat'
+ 
 export default function AppRouter() {
   return (
     <BrowserRouter>
@@ -26,6 +27,7 @@ export default function AppRouter() {
           <Route path='/clients' component={ClientPage} />
           <Route path='/schedule/:id' component={SchedulePage} />
           <Route path='/profile/:id' component={ProfilePage} />
+          <Route path='/chat' component={ChatPage} />
         </AuthUserContext.Provider>
       </Switch>
     </BrowserRouter>

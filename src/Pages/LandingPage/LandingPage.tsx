@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import ListView from '../../Components/ListView';
 import { withFirebase } from '../../Containers/Firebase';
+import Chat from '../Chat/index';
 
 
-const IMG = require('../../assets/mim.png')
+const IMG = require('../../assets/mim2.png')
 
 
 // state
@@ -13,16 +14,14 @@ const initialState = { signedIn: true }
 const LandingPage = (state = initialState) => {
     return (
         <div>
-            <img src={IMG} ></img>
+            <img className="mainImg" src={IMG} ></img>
             <a href="/signup"> Sign Up </a>
             <a href="/signin"> Sign In </a>
             <a href="/onboard"> onboard </a>
             <a href="/schedule/123456"> Schedule </a>
             <a href="/clients"> Clients </a>
-            <a href="/profile/1234567"> Profile </a>
-
-            <ListView></ListView>
-
+            <a href="/profile/JpXPvHM2ckdKo7j9S6VwwoG5GmC2"> Profile </a>
+            <a href="/chat"> Chat </a>
         </div>
     )
 };
