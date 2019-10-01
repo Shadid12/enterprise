@@ -46,6 +46,13 @@ const ProfilePage = (props: any) => {
         })
     };
 
+    const updateSkills = (payload: any) => {
+        setLoading(true)
+        props.firebase.updateUserInfo(payload).then((res: any) => {
+            getUser()
+        })
+    }
+
     if(!props.authUser) {
         return <div>Not Logged  in</div>
     }
@@ -62,7 +69,7 @@ const ProfilePage = (props: any) => {
                         update={updateUserInfo} 
                         authUserId={props.authUser.uid}
                     />
-                    <SkillCard />
+                    <SkillCard updateSkills={updateSkills}/>
 
                 </div>
             }
