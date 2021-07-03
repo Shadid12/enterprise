@@ -1,10 +1,7 @@
 import React, { Component } from 'react'
-import ListView from '../../Components/ListView';
-import { withFirebase } from '../../Containers/Firebase';
-import Chat from '../Chat/index';
 
 
-const IMG = require('../../assets/mim2.png')
+const IMG = require('../../assets/mim.png')
 
 
 // state
@@ -14,7 +11,6 @@ const initialState = { signedIn: true }
 const LandingPage = (state = initialState) => {
     return (
         <div>
-            <img className="mainImg" src={IMG} ></img>
             <a href="/signup"> Sign Up </a>
             <a href="/signin"> Sign In </a>
             <a href="/onboard"> onboard </a>

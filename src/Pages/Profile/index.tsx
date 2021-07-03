@@ -6,6 +6,7 @@ import IUserModel from '../../Models/IUserModel';
 import { CircularProgress, makeStyles, createStyles, Theme } from '@material-ui/core';
 import { IUserInfo } from '../../Models/IUserInfo';
 import { withAuthentication } from '../../Containers/Session';
+import SkillCard from '../../Components/SkillsCard';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -45,6 +46,13 @@ const ProfilePage = (props: any) => {
         })
     };
 
+    const updateSkills = (payload: any) => {
+        setLoading(true)
+        props.firebase.updateUserInfo(payload).then((res: any) => {
+            getUser()
+        })
+    }
+
     if(!props.authUser) {
         return <div>Not Logged  in</div>
     }
@@ -55,8 +63,16 @@ const ProfilePage = (props: any) => {
             {loading ? (
                 <CircularProgress className={classes.progress} />
                 ) : 
-                <BasicInfo user={state.user} update={updateUserInfo} authUserId={props.authUser.uid}/>
-            } 
+                <div>
+                    <BasicInfo 
+                        user={state.user} 
+                        update={updateUserInfo} 
+                        authUserId={props.authUser.uid}
+                    />
+                    <SkillCard updateSkills={updateSkills}/>
+
+                </div>
+            }
             <button onClick={() => {
                 const id = props.match.params
                 props.history.push(`/schedule/${id.id}`)
